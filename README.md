@@ -13,4 +13,4 @@ Business Analytics, Data Science, and Machine Learning Trends
 
 ## Team Members
 Carolina Resendez
-... 
+Saori Kikuchi
