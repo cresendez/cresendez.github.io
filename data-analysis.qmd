@@ -3,8 +3,6 @@ title: "Data Analysis"
 format: html
 ---
 
-# Data Analysis
-
 ## Introduction
 This page presents the data cleaning and exploratory data analysis for the project dataset.
 
