@@ -1,5 +1,6 @@
 ---
-title: "Data Analysis"
+title: "Research Introduction: Business Analytics, Data Science, and Machine Learning Trends in 2024"
+author: "Carolina Resendez and Saori Kikuchi"
 format: html
 ---
 
