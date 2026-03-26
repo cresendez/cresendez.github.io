@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Carolina Resendez and Saori Kikuchi">
 
-<title>Data Analysis – Job Market Analysis 2024</title>
+<title>Research Introduction: Business Analytics, Data Science, and Machine Learning Trends in 2024 – Job Market Analysis 2024</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -186,13 +187,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data Analysis</h1>
+<h1 class="title">Research Introduction: Business Analytics, Data Science, and Machine Learning Trends in 2024</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Carolina Resendez and Saori Kikuchi </p>
+          </div>
+  </div>
     
   
     
@@ -210,15 +217,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data-loading" class="level2">
 <h2 class="anchored" data-anchor-id="data-loading">Data Loading</h2>
 <p>The dataset used in this project is the Lightcast job postings dataset. It contains job posting metadata, employer information, job titles, skills, education requirements, employment type, remote status, salary fields, location fields, and multiple industry and occupation classification systems such as NAICS and SOC.</p>
-<div id="0242a71d" class="cell" data-execution_count="1">
+<div id="69fcc848" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="8f296e2b" class="cell" data-execution_count="2">
+<div id="7f6e05c5" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/lightcast_job_postings.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/zm/kchmwqsx0xd5vvr99k4vy1b40000gn/T/ipykernel_52625/2732303742.py:1: DtypeWarning: Columns (0: COMPANY_IS_STAFFING, 1: IS_INTERNSHIP) have mixed types. Specify dtype option on import or set low_memory=False.
+<pre><code>/var/folders/zm/kchmwqsx0xd5vvr99k4vy1b40000gn/T/ipykernel_53444/2732303742.py:1: DtypeWarning: Columns (0: COMPANY_IS_STAFFING, 1: IS_INTERNSHIP) have mixed types. Specify dtype option on import or set low_memory=False.
   df = pd.read_csv("data/lightcast_job_postings.csv")</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -380,13 +387,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="9ba68ed1" class="cell" data-execution_count="3">
+<div id="ba41bc95" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>(72498, 131)</code></pre>
 </div>
 </div>
-<div id="3c440808" class="cell" data-execution_count="4">
+<div id="f243547a" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df.columns.tolist()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>['ID',
@@ -529,7 +536,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="dropping-unnecessary-columns">Dropping Unnecessary Columns</h3>
 <p>Several columns are not needed for the main analysis because they are identifiers, tracking fields, raw URLs, or older versions of industry and occupation classification codes. Removing these columns makes the dataset easier to work with and avoids redundancy.</p>
 <p>In particular, multiple versions of NAICS and SOC codes appear in the dataset. To simplify the analysis, only the most recent detailed versions are kept where relevant, such as <code>NAICS_2022_6</code> and <code>SOC_2021_4</code>. Older or overlapping versions are removed to reduce duplication and keep the classification system consistent.</p>
-<div id="4f6afed3" class="cell" data-execution_count="5">
+<div id="284ddd26" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>columns_to_drop <span class="op">=</span> [</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ID"</span>, <span class="st">"URL"</span>, <span class="st">"ACTIVE_URLS"</span>, <span class="st">"DUPLICATES"</span>, <span class="st">"LAST_UPDATED_TIMESTAMP"</span>,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"NAICS2"</span>, <span class="st">"NAICS3"</span>, <span class="st">"NAICS4"</span>, <span class="st">"NAICS5"</span>, <span class="st">"NAICS6"</span>,</span>
@@ -548,7 +555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="handling-missing-values" class="level3">
 <h3 class="anchored" data-anchor-id="handling-missing-values">Handling Missing Values</h3>
 <p>Missing values are handled differently depending on the type of variable. Numerical fields are filled with the median when appropriate because the median is less sensitive to extreme values. Categorical fields are labeled as “Unknown” when the missing category may still be analytically useful. Columns with a very high share of missing values can be dropped because they contribute little reliable information.</p>
-<div id="26681589" class="cell" data-execution_count="6">
+<div id="ee7abf95" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>missing_summary <span class="op">=</span> df.isna().<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>missing_summary.head(<span class="dv">20</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -584,7 +591,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="missing-values-heatmap" class="level3">
 <h3 class="anchored" data-anchor-id="missing-values-heatmap">Missing Values Heatmap</h3>
 <p>The heatmap below shows where missing values are concentrated across the columns with the highest amount of missing data. This makes it easier to see whether missingness is isolated or spread across many variables.</p>
-<div id="747c59fe" class="cell" data-execution_count="7">
+<div id="290eb4eb" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>missing_matrix <span class="op">=</span> df.isna().astype(<span class="bu">int</span>)</span>
@@ -610,7 +617,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="removing-duplicates" class="level3">
 <h3 class="anchored" data-anchor-id="removing-duplicates">Removing Duplicates</h3>
 <p>Duplicate job postings can overstate demand if the same job appears more than once. To reduce this issue, duplicate rows are removed based on key identifying fields such as job title, company, location, and posting date.</p>
-<div id="0e3e1e7a" class="cell" data-execution_count="8">
+<div id="f445a316" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>duplicate_subset <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> [<span class="st">"TITLE_NAME"</span>, <span class="st">"COMPANY_NAME"</span>, <span class="st">"LOCATION"</span>, <span class="st">"POSTED"</span>] <span class="cf">if</span> col <span class="kw">in</span> df.columns]</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>before_rows <span class="op">=</span> <span class="bu">len</span>(df)</span>
@@ -626,7 +633,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="checking-data-types" class="level3">
 <h3 class="anchored" data-anchor-id="checking-data-types">Checking Data Types</h3>
 <p>Some columns, especially salary and experience variables, should be numeric for analysis.</p>
-<div id="7377f82c" class="cell" data-execution_count="9">
+<div id="ae2d09b3" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>numeric_check_cols <span class="op">=</span> [<span class="st">"SALARY"</span>, <span class="st">"SALARY_FROM"</span>, <span class="st">"SALARY_TO"</span>, <span class="st">"MIN_YEARS_EXPERIENCE"</span>, <span class="st">"MAX_YEARS_EXPERIENCE"</span>]</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>existing_numeric_check_cols <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> numeric_check_cols <span class="cf">if</span> col <span class="kw">in</span> df.columns]</span>
@@ -648,7 +655,7 @@ dtype: object</code></pre>
 <section id="job-postings-by-industry" class="level3">
 <h3 class="anchored" data-anchor-id="job-postings-by-industry">Job Postings by Industry</h3>
 <p>Understanding industry demand helps job seekers prioritize skill development.</p>
-<div id="03de2a5d" class="cell" data-execution_count="10">
+<div id="53ab5947" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"NAICS_2022_6_NAME"</span> <span class="kw">in</span> df.columns:</span>
@@ -674,7 +681,7 @@ dtype: object</code></pre>
 </section>
 <section id="salary-summary" class="level3">
 <h3 class="anchored" data-anchor-id="salary-summary">Salary Summary</h3>
-<div id="54fb6544" class="cell" data-execution_count="11">
+<div id="5cadbfa6" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>salary_cols <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> [<span class="st">"SALARY"</span>, <span class="st">"SALARY_FROM"</span>, <span class="st">"SALARY_TO"</span>] <span class="cf">if</span> col <span class="kw">in</span> df.columns]</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(salary_cols) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
@@ -689,7 +696,7 @@ dtype: object</code></pre>
 <section id="remote-vs.-on-site-jobs" class="level3">
 <h3 class="anchored" data-anchor-id="remote-vs.-on-site-jobs">Remote vs.&nbsp;On-Site Jobs</h3>
 <p>This chart shows how job postings are distributed across remote work categories.</p>
-<div id="e1f24f3c" class="cell" data-execution_count="12">
+<div id="e994fac3" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"REMOTE_TYPE_NAME"</span> <span class="kw">in</span> df.columns:</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    remote_counts <span class="op">=</span> df[<span class="st">"REMOTE_TYPE_NAME"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -713,7 +720,7 @@ dtype: object</code></pre>
 <section id="top-job-titles" class="level3">
 <h3 class="anchored" data-anchor-id="top-job-titles">Top Job Titles</h3>
 <p>This chart highlights the most common job titles in the dataset.</p>
-<div id="80d3a23c" class="cell" data-execution_count="13">
+<div id="c98aec47" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>title_col <span class="op">=</span> <span class="st">"TITLE_NAME"</span> <span class="cf">if</span> <span class="st">"TITLE_NAME"</span> <span class="kw">in</span> df.columns <span class="cf">else</span> <span class="st">"TITLE_RAW"</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>title_counts <span class="op">=</span> df[title_col].value_counts().head(<span class="dv">10</span>)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -737,7 +744,7 @@ dtype: object</code></pre>
 <section id="top-cities" class="level3">
 <h3 class="anchored" data-anchor-id="top-cities">Top Cities</h3>
 <p>This chart shows the cities with the highest number of job postings in the dataset.</p>
-<div id="78a7d6c4" class="cell" data-execution_count="14">
+<div id="bae5288a" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"CITY_NAME"</span> <span class="kw">in</span> df.columns:</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    city_counts <span class="op">=</span> df[<span class="st">"CITY_NAME"</span>].value_counts().head(<span class="dv">10</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -768,8 +775,7 @@ dtype: object</code></pre>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <p>This analysis is based on the Lightcast job postings dataset provided in Module 2: Lab 01. Additional academic sources will be added that support the findings conlusion:</p>
-<p>U.S. Bureau of Labor Statistics. (2025). Data scientists (Occupational Outlook Handbook). U.S. Department of Labor. https://www.bls.gov/ooh/math/data-scientists.htm</p>
-<p>Bristow Holland. (2025, May 19). Understanding data science salary trends and influencing factors. https://www.bristowholland.com/insights/thought-leadership/understanding-data-science-salary-trends-and-influencing-factors/</p>
+<p><span class="citation" data-cites="bls2025datascientists bristow2025salarytrends">[@bls2025datascientists; @bristow2025salarytrends]</span></p>
 
 
 </section>

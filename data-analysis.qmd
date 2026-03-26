@@ -228,8 +228,4 @@ The salary related fields offer a starting point for understanding compensation,
 ## References
 This analysis is based on the Lightcast job postings dataset provided in Module 2: Lab 01. Additional academic sources will be added that support the findings conlusion: 
 
-U.S. Bureau of Labor Statistics. (2025). Data scientists (Occupational Outlook Handbook). U.S. Department of Labor. 
-https://www.bls.gov/ooh/math/data-scientists.htm
-
-Bristow Holland. (2025, May 19). Understanding data science salary trends and influencing factors. 
-https://www.bristowholland.com/insights/thought-leadership/understanding-data-science-salary-trends-and-influencing-factors/
+[@bls2025datascientists; @bristow2025salarytrends]
