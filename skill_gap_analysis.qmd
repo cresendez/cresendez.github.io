@@ -22,7 +22,7 @@ df = pd.read_csv(
 )
 
 skills_data = {
-    "Name": ["Saori", "Caroolina", "Member3"],
+    "Name": ["Saori", "Carolina", "Member3"],
     "Python": [2, 4, 2],
     "SQL": [2, 4, 2],
     "Machine Learning": [2, 4, 1],
