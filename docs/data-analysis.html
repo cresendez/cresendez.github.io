@@ -182,6 +182,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a>
   <ul class="collapse">
+  <li><a href="#salary-distribution" id="toc-salary-distribution" class="nav-link" data-scroll-target="#salary-distribution">Salary Distribution</a></li>
+  <li><a href="#salary-by-industry" id="toc-salary-by-industry" class="nav-link" data-scroll-target="#salary-by-industry">Salary by Industry</a></li>
   <li><a href="#job-postings-by-industry" id="toc-job-postings-by-industry" class="nav-link" data-scroll-target="#job-postings-by-industry">Job Postings by Industry</a></li>
   <li><a href="#salary-summary" id="toc-salary-summary" class="nav-link" data-scroll-target="#salary-summary">Salary Summary</a></li>
   <li><a href="#remote-vs.-on-site-jobs" id="toc-remote-vs.-on-site-jobs" class="nav-link" data-scroll-target="#remote-vs.-on-site-jobs">Remote vs.&nbsp;On-Site Jobs</a></li>
@@ -228,15 +230,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data-loading" class="level2">
 <h2 class="anchored" data-anchor-id="data-loading">Data Loading</h2>
 <p>The dataset used in this project is the Lightcast job postings dataset. It contains job posting metadata, employer information, job titles, skills, education requirements, employment type, remote status, salary fields, location fields, and multiple industry and occupation classification systems such as NAICS and SOC.</p>
-<div id="0dbf714f" class="cell" data-execution_count="1">
+<div id="5144e2fd" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="bdd6e48f" class="cell" data-execution_count="2">
+<div id="510ce8c8" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/lightcast_job_postings.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_15463/2732303742.py:1: DtypeWarning: Columns (19,30) have mixed types. Specify dtype option on import or set low_memory=False.
+<pre><code>/tmp/ipykernel_18177/2732303742.py:1: DtypeWarning: Columns (19,30) have mixed types. Specify dtype option on import or set low_memory=False.
   df = pd.read_csv("data/lightcast_job_postings.csv")</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -398,13 +400,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="70e1047b" class="cell" data-execution_count="3">
+<div id="9ff082db" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>(72498, 131)</code></pre>
 </div>
 </div>
-<div id="610b8c32" class="cell" data-execution_count="4">
+<div id="e72ca9da" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df.columns.tolist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>['ID',
@@ -547,7 +549,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="dropping-unnecessary-columns">Dropping Unnecessary Columns</h3>
 <p>Several columns are not needed for the main analysis because they are identifiers, tracking fields, raw URLs, or older versions of industry and occupation classification codes. Removing these columns makes the dataset easier to work with and avoids redundancy.</p>
 <p>In particular, multiple versions of NAICS and SOC codes appear in the dataset. To simplify the analysis, only the most recent detailed versions are kept where relevant, such as <code>NAICS_2022_6</code> and <code>SOC_2021_4</code>. Older or overlapping versions are removed to reduce duplication and keep the classification system consistent.</p>
-<div id="eb459b88" class="cell" data-execution_count="5">
+<div id="bcef5039" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>columns_to_drop <span class="op">=</span> [</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ID"</span>, <span class="st">"URL"</span>, <span class="st">"ACTIVE_URLS"</span>, <span class="st">"DUPLICATES"</span>, <span class="st">"LAST_UPDATED_TIMESTAMP"</span>,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"NAICS2"</span>, <span class="st">"NAICS3"</span>, <span class="st">"NAICS4"</span>, <span class="st">"NAICS5"</span>, <span class="st">"NAICS6"</span>,</span>
@@ -566,7 +568,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="handling-missing-values" class="level3">
 <h3 class="anchored" data-anchor-id="handling-missing-values">Handling Missing Values</h3>
 <p>Missing values are handled differently depending on the type of variable. Numerical fields are filled with the median when appropriate because the median is less sensitive to extreme values. Categorical fields are labeled as “Unknown” when the missing category may still be analytically useful. Columns with a very high share of missing values can be dropped because they contribute little reliable information.</p>
-<div id="c0b47bca" class="cell" data-execution_count="6">
+<div id="0c43c909" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>missing_summary <span class="op">=</span> df.isna().<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>missing_summary.head(<span class="dv">20</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -602,7 +604,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="missing-values-heatmap" class="level3">
 <h3 class="anchored" data-anchor-id="missing-values-heatmap">Missing Values Heatmap</h3>
 <p>The heatmap below shows where missing values are concentrated across the columns with the highest amount of missing data. This makes it easier to see whether missingness is isolated or spread across many variables.</p>
-<div id="3a74e307" class="cell" data-execution_count="7">
+<div id="56f6312d" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>missing_matrix <span class="op">=</span> df.isna().astype(<span class="bu">int</span>)</span>
@@ -628,7 +630,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="removing-duplicates" class="level3">
 <h3 class="anchored" data-anchor-id="removing-duplicates">Removing Duplicates</h3>
 <p>Duplicate job postings can overstate demand if the same job appears more than once. To reduce this issue, duplicate rows are removed based on key identifying fields such as job title, company, location, and posting date.</p>
-<div id="d8e20f43" class="cell" data-execution_count="8">
+<div id="27ae3664" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>duplicate_subset <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> [<span class="st">"TITLE_NAME"</span>, <span class="st">"COMPANY_NAME"</span>, <span class="st">"LOCATION"</span>, <span class="st">"POSTED"</span>] <span class="cf">if</span> col <span class="kw">in</span> df.columns]</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>before_rows <span class="op">=</span> <span class="bu">len</span>(df)</span>
@@ -644,7 +646,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="checking-data-types" class="level3">
 <h3 class="anchored" data-anchor-id="checking-data-types">Checking Data Types</h3>
 <p>Some columns, especially salary and experience variables, should be numeric for analysis.</p>
-<div id="249b8553" class="cell" data-execution_count="9">
+<div id="ada87b1a" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>numeric_check_cols <span class="op">=</span> [<span class="st">"SALARY"</span>, <span class="st">"SALARY_FROM"</span>, <span class="st">"SALARY_TO"</span>, <span class="st">"MIN_YEARS_EXPERIENCE"</span>, <span class="st">"MAX_YEARS_EXPERIENCE"</span>]</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>existing_numeric_check_cols <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> numeric_check_cols <span class="cf">if</span> col <span class="kw">in</span> df.columns]</span>
@@ -663,27 +665,61 @@ dtype: object</code></pre>
 <section id="exploratory-data-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h2>
 <p>This section explores key trends in business analytics, data science, and machine learning job postings, including industry, remote work, salary fields, job titles, and employers.</p>
+<section id="salary-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="salary-distribution">Salary Distribution</h3>
+<p>This histogram shows the distribution of salaries across job postings.</p>
+<div id="7fff6119" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"NAICS_2022_6_NAME"</span> <span class="kw">in</span> df.columns <span class="kw">and</span> <span class="st">"SALARY"</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    top_industries <span class="op">=</span> df[<span class="st">"NAICS_2022_6_NAME"</span>].value_counts().head(<span class="dv">10</span>).index</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> df[df[<span class="st">"NAICS_2022_6_NAME"</span>].isin(top_industries)]</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">6</span>))</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    sns.boxplot(data<span class="op">=</span>subset, x<span class="op">=</span><span class="st">"NAICS_2022_6_NAME"</span>, y<span class="op">=</span><span class="st">"SALARY"</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Salary by Industry"</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="salary-by-industry" class="level3">
+<h3 class="anchored" data-anchor-id="salary-by-industry">Salary by Industry</h3>
+<p>Salaries are right-skewed, indicating a small number of high-paying roles.</p>
+<div id="bd986133" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"NAICS_2022_6_NAME"</span> <span class="kw">in</span> df.columns <span class="kw">and</span> <span class="st">"SALARY"</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    top_industries <span class="op">=</span> df[<span class="st">"NAICS_2022_6_NAME"</span>].value_counts().head(<span class="dv">10</span>).index</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> df[df[<span class="st">"NAICS_2022_6_NAME"</span>].isin(top_industries)]</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">6</span>))</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    sns.boxplot(data<span class="op">=</span>subset, x<span class="op">=</span><span class="st">"NAICS_2022_6_NAME"</span>, y<span class="op">=</span><span class="st">"SALARY"</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Salary by Industry"</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="job-postings-by-industry" class="level3">
 <h3 class="anchored" data-anchor-id="job-postings-by-industry">Job Postings by Industry</h3>
 <p>Understanding industry demand helps job seekers prioritize skill development.</p>
-<div id="8ff47804" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"NAICS_2022_6_NAME"</span> <span class="kw">in</span> df.columns:</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    industry_counts <span class="op">=</span> df[<span class="st">"NAICS_2022_6_NAME"</span>].value_counts().head(<span class="dv">10</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    industry_counts.plot(kind<span class="op">=</span><span class="st">"bar"</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Top 10 Industries by Job Postings"</span>)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Industry"</span>)</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e922681d" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"NAICS_2022_6_NAME"</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    industry_counts <span class="op">=</span> df[<span class="st">"NAICS_2022_6_NAME"</span>].value_counts().head(<span class="dv">10</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    industry_counts.plot(kind<span class="op">=</span><span class="st">"bar"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Top 10 Industries by Job Postings"</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Industry"</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data-analysis_files/figure-html/cell-11-output-1.png" width="945" height="563" class="figure-img"></p>
+<p><img src="data-analysis_files/figure-html/cell-13-output-1.png" width="945" height="563" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -692,13 +728,13 @@ dtype: object</code></pre>
 </section>
 <section id="salary-summary" class="level3">
 <h3 class="anchored" data-anchor-id="salary-summary">Salary Summary</h3>
-<div id="a924d2a3" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>salary_cols <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> [<span class="st">"SALARY"</span>, <span class="st">"SALARY_FROM"</span>, <span class="st">"SALARY_TO"</span>] <span class="cf">if</span> col <span class="kw">in</span> df.columns]</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(salary_cols) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    df[salary_cols].describe()</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No salary columns are available after cleaning."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="da246385" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>salary_cols <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> [<span class="st">"SALARY"</span>, <span class="st">"SALARY_FROM"</span>, <span class="st">"SALARY_TO"</span>] <span class="cf">if</span> col <span class="kw">in</span> df.columns]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(salary_cols) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    df[salary_cols].describe()</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No salary columns are available after cleaning."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>No salary columns are available after cleaning.</code></pre>
 </div>
@@ -707,22 +743,22 @@ dtype: object</code></pre>
 <section id="remote-vs.-on-site-jobs" class="level3">
 <h3 class="anchored" data-anchor-id="remote-vs.-on-site-jobs">Remote vs.&nbsp;On-Site Jobs</h3>
 <p>This chart shows how job postings are distributed across remote work categories.</p>
-<div id="502f0abe" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"REMOTE_TYPE_NAME"</span> <span class="kw">in</span> df.columns:</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    remote_counts <span class="op">=</span> df[<span class="st">"REMOTE_TYPE_NAME"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    remote_counts.plot(kind<span class="op">=</span><span class="st">"bar"</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Remote vs. On-Site Job Postings"</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Work Arrangement"</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="396de1ae" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"REMOTE_TYPE_NAME"</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    remote_counts <span class="op">=</span> df[<span class="st">"REMOTE_TYPE_NAME"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    remote_counts.plot(kind<span class="op">=</span><span class="st">"bar"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Remote vs. On-Site Job Postings"</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Work Arrangement"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data-analysis_files/figure-html/cell-13-output-1.png" width="758" height="470" class="figure-img"></p>
+<p><img src="data-analysis_files/figure-html/cell-15-output-1.png" width="758" height="470" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -731,22 +767,22 @@ dtype: object</code></pre>
 <section id="top-job-titles" class="level3">
 <h3 class="anchored" data-anchor-id="top-job-titles">Top Job Titles</h3>
 <p>This chart highlights the most common job titles in the dataset.</p>
-<div id="11a4cb86" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>title_col <span class="op">=</span> <span class="st">"TITLE_NAME"</span> <span class="cf">if</span> <span class="st">"TITLE_NAME"</span> <span class="kw">in</span> df.columns <span class="cf">else</span> <span class="st">"TITLE_RAW"</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>title_counts <span class="op">=</span> df[title_col].value_counts().head(<span class="dv">10</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>title_counts.plot(kind<span class="op">=</span><span class="st">"bar"</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Top 10 Job Titles"</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Job Title"</span>)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="dfe2f53b" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>title_col <span class="op">=</span> <span class="st">"TITLE_NAME"</span> <span class="cf">if</span> <span class="st">"TITLE_NAME"</span> <span class="kw">in</span> df.columns <span class="cf">else</span> <span class="st">"TITLE_RAW"</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>title_counts <span class="op">=</span> df[title_col].value_counts().head(<span class="dv">10</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>title_counts.plot(kind<span class="op">=</span><span class="st">"bar"</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Top 10 Job Titles"</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Job Title"</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data-analysis_files/figure-html/cell-14-output-1.png" width="950" height="565" class="figure-img"></p>
+<p><img src="data-analysis_files/figure-html/cell-16-output-1.png" width="950" height="565" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -755,22 +791,22 @@ dtype: object</code></pre>
 <section id="top-cities" class="level3">
 <h3 class="anchored" data-anchor-id="top-cities">Top Cities</h3>
 <p>This chart shows the cities with the highest number of job postings in the dataset.</p>
-<div id="07b38aa1" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"CITY_NAME"</span> <span class="kw">in</span> df.columns:</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    city_counts <span class="op">=</span> df[<span class="st">"CITY_NAME"</span>].value_counts().head(<span class="dv">10</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    city_counts.plot(kind<span class="op">=</span><span class="st">"bar"</span>)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Top 10 Cities by Job Postings"</span>)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"City"</span>)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="6f9b224b" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"CITY_NAME"</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    city_counts <span class="op">=</span> df[<span class="st">"CITY_NAME"</span>].value_counts().head(<span class="dv">10</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    city_counts.plot(kind<span class="op">=</span><span class="st">"bar"</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Top 10 Cities by Job Postings"</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"City"</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Number of Job Postings"</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data-analysis_files/figure-html/cell-15-output-1.png" width="950" height="566" class="figure-img"></p>
+<p><img src="data-analysis_files/figure-html/cell-17-output-1.png" width="950" height="566" class="figure-img"></p>
 </figure>
 </div>
 </div>

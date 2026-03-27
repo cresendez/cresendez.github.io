@@ -140,6 +140,41 @@ df[existing_numeric_check_cols].dtypes
 ## Exploratory Data Analysis
 This section explores key trends in business analytics, data science, and machine learning job postings, including industry, remote work, salary fields, job titles, and employers.
 
+### Salary Distribution
+
+This histogram shows the distribution of salaries across job postings.
+
+```{python}
+import seaborn as sns
+
+if "NAICS_2022_6_NAME" in df.columns and "SALARY" in df.columns:
+    top_industries = df["NAICS_2022_6_NAME"].value_counts().head(10).index
+    subset = df[df["NAICS_2022_6_NAME"].isin(top_industries)]
+
+    plt.figure(figsize=(12,6))
+    sns.boxplot(data=subset, x="NAICS_2022_6_NAME", y="SALARY")
+    plt.xticks(rotation=45)
+    plt.title("Salary by Industry")
+    plt.show()
+```
+### Salary by Industry
+
+Salaries are right-skewed, indicating a small number of high-paying roles.
+```{python}
+import seaborn as sns
+
+if "NAICS_2022_6_NAME" in df.columns and "SALARY" in df.columns:
+    top_industries = df["NAICS_2022_6_NAME"].value_counts().head(10).index
+    subset = df[df["NAICS_2022_6_NAME"].isin(top_industries)]
+
+    plt.figure(figsize=(12,6))
+    sns.boxplot(data=subset, x="NAICS_2022_6_NAME", y="SALARY")
+    plt.xticks(rotation=45)
+    plt.title("Salary by Industry")
+    plt.show()
+
+```
+
 ### Job Postings by Industry
 
 Understanding industry demand helps job seekers prioritize skill development.
