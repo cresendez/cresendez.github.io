@@ -159,7 +159,8 @@ if "NAICS_2022_6_NAME" in df.columns and "SALARY" in df.columns:
 ```
 ### Salary by Industry
 
-Salaries are right-skewed, indicating a small number of high-paying roles.
+This boxplot compares salary distributions across the top industries with the highest number of job postings.
+
 ```{python}
 import seaborn as sns
 

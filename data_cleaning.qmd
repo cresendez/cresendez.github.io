@@ -1,0 +1,8 @@
+## Data Cleaning
+
+We cleaned the dataset by:
+- Removing missing values
+- Handling inconsistent formats
+- Filtering relevant columns
+
+This ensures accurate analysis and reliable insights.

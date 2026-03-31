@@ -1,0 +1,5 @@
+## NLP Methods
+
+We used text processing techniques to extract key skills from job descriptions.
+
+This includes tokenization and frequency analysis.

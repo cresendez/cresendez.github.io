@@ -1,0 +1,6 @@
+## Machine Learning Methods
+
+We applied clustering techniques to group job postings based on skills and requirements.
+
+These methods help identify patterns and similarities across roles.
+

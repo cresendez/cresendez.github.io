@@ -1,0 +1,5 @@
+## Introduction
+
+This project analyzes job market trends in 2024, focusing on required skills, salary patterns, and industry demand.
+
+The goal is to identify key competencies needed for data-related careers and evaluate skill gaps within the team.
