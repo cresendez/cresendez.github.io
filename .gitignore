@@ -1,7 +1,6 @@
 /.quarto/
 **/*.quarto_ipynb
 .Rproj.user
-data/
 .DS_Store
-data/
-*.csv
+.venv/
+data/lightcast_job_postings.csv
