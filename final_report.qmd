@@ -1,0 +1,26 @@
+---
+title: "Evaluating Personal Job Market Prospects in 2024"
+subtitle: "Final Report"
+author:
+  - "Project Group 2"
+  - "Carolina Resendez"
+  - "Saori Kikuchi"
+date: today
+date-modified: today
+date-format: long
+bibliography: references.bib
+format:
+  docx: default
+---
+
+{{< include introduction.qmd >}}
+
+{{< include data_cleaning.qmd >}}
+
+{{< include eda.qmd >}}
+
+{{< include ml_methods.qmd >}}
+
+{{< include nlp_methods.qmd >}}
+
+{{< include skill_gap_analysis.qmd >}}
