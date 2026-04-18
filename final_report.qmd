@@ -24,3 +24,7 @@ format:
 {{< include nlp_methods.qmd >}}
 
 {{< include skill_gap_analysis.qmd >}}
+
+{{< include discussion.qmd >}}
+
+{{< include conclusion.qmd >}}
