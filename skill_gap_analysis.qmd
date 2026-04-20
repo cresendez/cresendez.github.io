@@ -1,6 +1,6 @@
 ## Skill Gap Analysis
 
-This page examines which skills appear most often in analytics-related job postings and what those patterns suggest for students preparing for business analytics, data science, and machine learning careers. The goal is to compare market demand with the types of skills that job seekers may need to strengthen.
+This page examines which skills appear most often in analytics-related job postings and what those patterns suggest for students preparing for business analytics, data science, and machine learning careers. The goal is to compare market demand with the types of skills that job seekers may need to strengthen. This analysis identified several gaps between the skills sought after in the market and the current skills of the team. While programming skills such as Python and SQL are particularly important, as well as cloud technologies (such as AWS), the team's experience in these areas is limited. Advanced skills in machine learning and data engineering are also in high demand, and strengthening these skills will be essential for improving competitiveness in the future.
 
 ### Load Cleaned Data
 

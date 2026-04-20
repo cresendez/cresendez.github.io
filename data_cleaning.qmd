@@ -4,6 +4,8 @@
 
 This page explains how the Lightcast job-posting dataset was prepared for analysis. The goal is to create a clean and consistent dataset for exploratory analysis, skill comparisons, clustering, regression, and classification.
 
+This dataset consists of 72,498 job listings and 131 variables, including job title, salary range, skills, education level, and industry classification. To ensure usability, data cleaning procedures such as variable selection, column naming standardization, handling of missing values, and salary normalization were applied. These transformations enable more effective exploration analysis and modeling.
+
 ### Data Source
 
 The project uses the file `lightcast_job_postings.csv`, stored in the `data` folder of the repository.
